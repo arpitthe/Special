@@ -1,0 +1,292 @@
+/* ===== Core Styles ===== */
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffecec 100%);
+  cursor: url('https://cdn.custom-cursor.com/db/pointer/32/Pink_Heart_Cursor.png'), auto;
+  font-family: 'Dancing Script', cursive;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Paper Notes ===== */
+.paper {
+  background: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+  background-size: 300px;
+  padding: 30px 80px;
+  position: absolute;
+  box-shadow: 0 10px 25px rgba(100, 0, 50, 0.3);
+  border-radius: 3px;
+  transform: rotateZ(-5deg);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 200, 200, 0.3);
+  user-select: none;
+  max-width: 300px;
+  cursor: grab;
+}
+
+.paper:hover {
+  box-shadow: 0 15px 30px rgba(100, 0, 50, 0.4);
+  transform: rotateZ(-3deg) scale(1.02);
+}
+
+/* Heart Paper */
+.paper.heart {
+  width: 180px;
+  height: 180px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: #ff6b6b;
+  box-shadow: 0 5px 20px rgba(255, 50, 50, 0.4);
+  animation: heartbeat 2s infinite;
+  cursor: pointer;
+}
+
+.paper.heart::after {
+  content: "";
+  background-image: url('https://cdn.pixabay.com/photo/2016/03/31/19/25/cartoon-1294994__340.png');
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-size: 130px;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+}
+
+/* Photo Papers */
+.paper.image {
+  padding: 15px;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+}
+
+.paper.image p {
+  margin: 5px 0;
+  text-align: center;
+  font-family: 'Zeyada', cursive;
+  font-size: 1.8rem;
+  color: #5a2a2a;
+}
+
+.paper.image img {
+  max-height: 200px;
+  width: auto;
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+.paper.image:hover img {
+  transform: scale(1.05);
+}
+
+/* Text Styling */
+p {
+  font-size: 2rem;
+  color: #5a2a2a;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.p1 { color: #7a3b3b; }
+.p2 { color: #c45c5c; font-weight: bold; }
+
+/* ===== Animations ===== */
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.05); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* Heart Trail Effect */
+.heart-trail {
+  position: absolute;
+  pointer-events: none;
+  animation: heartFloat 1s ease-out forwards, heartFade 1s ease-out forwards;
+  z-index: 9999;
+  font-size: 24px;
+  text-shadow: 0 0 10px rgba(255,0,0,0.5);
+}
+
+@keyframes heartFloat {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(0, -50px); }
+}
+
+@keyframes heartFade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Secret Message */
+.secret-message {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #ff4d4d;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 5px 10px;
+  border-radius: 10px;
+  animation: fadeIn 0.5s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Memory Rain Effect ===== */
+#photoExplosion {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10000;
+  display: none;
+}
+
+#memoryRainContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 9998;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.explosion-photo {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 10001;
+}
+
+.memory-photo {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin: 5px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  z-index: 9998;
+}
+
+/* Replay Button */
+.memory-replay-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  z-index: 10000;
+}
+
+.memory-replay-btn:hover {
+  transform: translateX(-50%) scale(1.05);
+  background: #ff5252;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .paper {
+    padding: 20px 50px;
+    max-width: 80vw;
+  }
+  .paper.heart {
+    width: 200px;
+    height: 200px;
+  }
+  p {
+    font-size: 1.5rem;
+  }
+  .memory-photo {
+    width: 70px;
+    height: 70px;
+  }
+}
+/* Video Player Styles */
+#starRainVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 99999;
+  background: #000;
+}
+
+/* Secret Message Counter */
+.secret-message {
+  /* Keep existing styles */
+  font-size: 1.2rem;
+}
+/* Video Container */
+#videoContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  background: #000;
+}
+
+/* Love Text */
+#loveText {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: white;
+  text-shadow: 0 0 20px #ff69b4;
+  opacity: 0;
+  z-index: 100000;
+  transition: opacity 3s ease-in;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  #loveText {
+    font-size: 2.5rem;
+    width: 90%;
+  }
+}
